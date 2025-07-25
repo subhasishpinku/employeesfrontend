@@ -6,7 +6,7 @@ const  TableBinding= () => {
   // Fetch data from Express API
   const fetchUsers = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/users');
+      const res = await axios.get('https://employees-2vss.onrender.com/api/users');
       setUsers(res.data);
     } catch (err) {
       console.error('Error fetching users:', err);
