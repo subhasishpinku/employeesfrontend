@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import "./Header.css";
+import { Link } from "react-router-dom";
 
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const toggleMenu = () => {
-    setMenuOpen(!menuOpen); 
+    setMenuOpen(!menuOpen);
   };
 
   return (
@@ -16,11 +17,20 @@ function Header() {
         </div>
 
         {menuOpen && (
+          // <div className="dropdown-menu">
+          //   <a href="#">Home</a>
+          //   <a href="#">Profile</a>
+          //   <a href="#">Settings</a>
+          //   <a href="#">Help</a>
+          // </div>
           <div className="dropdown-menu">
-            <a href="#">Home</a>
-            <a href="#">Profile</a>
-            <a href="#">Settings</a>
-            <a href="#">Help</a>
+            <Link to="/">Home</Link>
+            <Link to="/login">User Manager</Link>
+            <Link to="/Dashboard">Employee Manager</Link>
+            <Link to="/table">User List</Link>
+            <Link to="/profile">Profile</Link>
+            <Link to="/settings">Settings</Link>
+            <Link to="/help">Help</Link>
           </div>
         )}
       </div>
