@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import Header from "./Header";
+
 const UserManager = () => {
   const [users, setUsers] = useState([]);
   const [form, setForm] = useState({ name: "", email: "", password: "" });
@@ -59,6 +61,7 @@ const UserManager = () => {
 
   return (
     <div>
+     <Header/>
       <h2>User Manager</h2>
           <form onSubmit={handleSubmit}>
       <div className="d-flex justify-content-center align-items-center vh-100">
