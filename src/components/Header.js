@@ -25,8 +25,8 @@ function Header() {
           // </div>
           <div className="dropdown-menu">
             <Link to="/">Home</Link>
-            <Link to="/login">User Manager</Link>
-            <Link to="/Dashboard">Employee Manager</Link>
+            <Link to="/userManager">User Manager</Link>
+            <Link to="/employeeManager">Employee Manager</Link>
             <Link to="/table">User List</Link>
             <Link to="/profile">Profile</Link>
             <Link to="/settings">Settings</Link>

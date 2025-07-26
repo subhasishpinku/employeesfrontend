@@ -3,7 +3,7 @@ import axios from "axios";
 
 const API = "https://employees-2vss.onrender.com/api/employees";
 
-const Dashboard = () => {
+const EmployeeManager = () => {
   const [employees, setEmployees] = useState([]);
   const [form, setForm] = useState({ name: "", email: "", position: "" });
   const [editingId, setEditingId] = useState(null);
@@ -162,4 +162,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default EmployeeManager;
