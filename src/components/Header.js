@@ -1,10 +1,18 @@
 import React, { useState } from "react";
 import "./Header.css";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "./auth/AuthContext";
 
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+ const { logout } = useAuth();
+  const navigate = useNavigate();
 
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
@@ -24,7 +32,6 @@ function Header() {
           //   <a href="#">Help</a>
           // </div>
           <div className="dropdown-menu">
-            <Link to="/">Home</Link>
             <Link to="/userManager">User Manager</Link>
             <Link to="/employeeManager">Employee Manager</Link>
             <Link to="/table">User List</Link>
@@ -45,11 +52,13 @@ function Header() {
           alt="User"
           className="icon"
         />
-        <img
-          src="https://cdn-icons-png.flaticon.com/512/1828/1828479.png"
-          alt="Logout"
-          className="icon"
-        />
+      <img
+        src="https://cdn-icons-png.flaticon.com/512/1828/1828479.png"
+        alt="Logout"
+        className="icon"
+        onClick={handleLogout}
+        title="Logout"
+      />
       </div>
     </header>
   );

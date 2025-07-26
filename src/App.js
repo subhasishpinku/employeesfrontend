@@ -1,7 +1,7 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import "./App.css";
 
-import Header from "./components/Header"; 
+import Header from "./components/Header";
 import UserManager from "./components/UserManager";
 import EmployeeManager from "./components/EmployeeManager";
 import TableBinding from "./components/TableBinding";
@@ -10,41 +10,102 @@ import Profile from "./components/Profile";
 import Help from "./components/Help";
 import Settings from "./components/Settings";
 import NotFound from "./components/NotFound";
-import ProtectedRoute from './components/auth/ProtectedRoute';
-import { AuthProvider } from './components/auth/AuthContext';
+import ProtectedRoute from "./components/auth/ProtectedRoute";
+import { AuthProvider, useAuth } from "./components/auth/AuthContext";
 import Login from "./components/Login";
 import Register from "./components/Register";
+
+const AuthenticatedLayout = ({ children }) => {
+  const { isAuthenticated } = useAuth();
+  return (
+    <>
+      {isAuthenticated && <Header />}
+      <div>{children}</div>
+    </>
+  );
+};
 
 function App() {
   return (
     <AuthProvider>
       <Router>
-        <div className='App'>
-          {/* Global Header can go here if needed */}
-          {/* <Header /> */}
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/" element={<Register />} />
 
-          <Routes>
-            <Route path="/login" element={<Login />} />
-            <Route path="/" element={<Register />} />
-            <Route path="/" element={<Home />} />
-            <Route path="/userManager" element={<UserManager />} />
-            <Route path="/employeeManager" element={<EmployeeManager />} />
-            <Route path="/table" element={<TableBinding />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/help" element={<Help />} />
-            <Route path="/settings" element={<Settings />} />
-
-            {/* Protected route example */}
-            <Route path="/header" element={
+          <Route
+            path="/home"
+            element={
               <ProtectedRoute>
-                <Header />
+                <AuthenticatedLayout>
+                  <Home />
+                </AuthenticatedLayout>
               </ProtectedRoute>
-            } />
-
-            {/* Fallback for 404 */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </div>
+            }
+          />
+          <Route
+            path="/userManager"
+            element={
+              <ProtectedRoute>
+                <AuthenticatedLayout>
+                  <UserManager />
+                </AuthenticatedLayout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/employeeManager"
+            element={
+              <ProtectedRoute>
+                <AuthenticatedLayout>
+                  <EmployeeManager />
+                </AuthenticatedLayout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/table"
+            element={
+              <ProtectedRoute>
+                <AuthenticatedLayout>
+                  <TableBinding />
+                </AuthenticatedLayout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <AuthenticatedLayout>
+                  <Profile />
+                </AuthenticatedLayout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/help"
+            element={
+              <ProtectedRoute>
+                <AuthenticatedLayout>
+                  <Help />
+                </AuthenticatedLayout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/settings"
+            element={
+              <ProtectedRoute>
+                <AuthenticatedLayout>
+                  <Settings />
+                </AuthenticatedLayout>
+              </ProtectedRoute>
+            }
+          />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
       </Router>
     </AuthProvider>
   );
